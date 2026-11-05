@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>Foxnet — Sovereign Control Grid for the Golden Era</title>
+  <meta name="description" content="Foxnet is the sovereign technology organization succeeding XNet Inc. Hardened operating systems, edge neural compute, and cryptographic mesh grids for the Golden Era."/>
+  <meta name="theme-color" content="#140f1c"/>
+  <meta name="color-scheme" content="dark"/>
+  <meta property="og:title" content="Foxnet — The Sovereign Control Grid for the Golden Era"/>
+  <meta property="og:description" content="Reborn from XNet into an autonomous, hardened architecture. F·O·X = 6·6·6. An ode to Bell Labs and the sovereign computing grid."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="Foxnet"/>
+  <meta property="og:url" content="https://foxnet.live/"/>
+  <link rel="canonical" href="https://foxnet.live/"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦊</text></svg>"/>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #140f1c;
+      --bg-alt: #1a1225;
+      --fg: #ece6f5;
+      --mut: #b4a9c8;
+      --acc: #b98cff;
+      --acc2: #7a3cc4;
+      --card: rgba(29, 21, 41, 0.85);
+      --card-hover: rgba(43, 31, 62, 0.95);
+      --line: #36284d;
+      --line-glow: rgba(185, 140, 255, 0.3);
+      --fire1: #ff5722;
+      --fire2: #ff9800;
+      --fire3: #ffd54f;
+      --fire-purple: #e040fb;
+      --gold: #ffca28;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.65;
+      overflow-x: hidden;
+      position: relative;
+    }
+    a { color: var(--acc); text-decoration: none; transition: color 0.2s, text-shadow 0.2s; }
+    a:hover { color: #fff; text-shadow: 0 0 8px var(--acc); }
+    .wrap { max-width: 68rem; margin: 0 auto; padding: 0 1.25rem; position: relative; z-index: 2; }
+
+    /* Canvas background for animated fire foxes */
+    #fox-canvas-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    #hero-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: auto;
+      cursor: crosshair;
+    }
+
+    /* Navigation */
+    nav.site {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(20, 15, 28, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav.site .wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 0.8rem 1.25rem;
+      flex-wrap: wrap;
+    }
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      color: #fff;
+      font-size: 1.15rem;
+      margin-right: auto;
+    }
+    .logo-fox-flame {
+      color: var(--fire2);
+      filter: drop-shadow(0 0 8px var(--fire1));
+      animation: flamePulse 2s infinite alternate ease-in-out;
+    }
+    @keyframes flamePulse {
+      0% { filter: drop-shadow(0 0 4px var(--fire1)) brightness(1); transform: scale(1); }
+      100% { filter: drop-shadow(0 0 14px var(--fire3)) drop-shadow(0 0 22px var(--fire-purple)) brightness(1.25); transform: scale(1.08); }
+    }
+    nav.site a.link {
+      color: var(--mut);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+    nav.site a.link:hover {
+      color: var(--fg);
+      text-decoration: none;
+    }
+    .nav-pill {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(122, 60, 196, 0.15);
+      color: var(--acc);
+    }
+
+    /* Hero Section */
+    header.hero {
+      position: relative;
+      background:
+        radial-gradient(1000px 500px at 50% 15%, rgba(122, 60, 196, 0.4), transparent 70%),
+        radial-gradient(600px 300px at 50% 35%, rgba(255, 87, 34, 0.18), transparent 60%),
+        linear-gradient(180deg, #1b1028 0%, #140f1c 100%);
+      border-bottom: 1px solid var(--line);
+      padding: 5rem 0 4.5rem;
+      text-align: center;
+      min-height: 82vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 52rem;
+      margin: 0 auto;
+    }
+    .brandmark-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--fire3);
+      font-size: 0.85rem;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 152, 0, 0.4);
+      background: rgba(255, 87, 34, 0.08);
+      backdrop-filter: blur(6px);
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 20px rgba(255, 87, 34, 0.2);
+    }
+    h1.hero-title {
+      font-size: clamp(2.8rem, 8vw, 5.2rem);
+      font-weight: 900;
+      margin: 0.2rem 0 0.8rem;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+    .hero-title .glow-fox {
+      background: linear-gradient(135deg, #fff 0%, #ffd54f 25%, #ff5722 65%, #e040fb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 35px rgba(255, 110, 30, 0.5));
+    }
+    .hero-title .glow-net {
+      color: var(--fg);
+    }
+    p.tagline {
+      color: var(--mut);
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      max-width: 44rem;
+      margin: 0 auto 2.2rem;
+      line-height: 1.5;
+      font-weight: 400;
+    }
+    .tagline b { color: #fff; font-weight: 600; }
+    .cta-group {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.6rem;
+      border-radius: 0.65rem;
+      font-weight: 700;
+      font-size: 0.98rem;
+      background: linear-gradient(135deg, var(--acc2) 0%, #9a5ce0 100%);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(122, 60, 196, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+    }
+    .btn.fire {
+      background: linear-gradient(135deg, #d84315 0%, #ff6f00 50%, #e040fb 100%);
+      box-shadow: 0 4px 25px rgba(255, 87, 34, 0.45);
+    }
+    .btn.secondary {
+      background: rgba(29, 21, 41, 0.6);
+      border: 1px solid var(--acc2);
+      color: var(--acc);
+      box-shadow: none;
+      backdrop-filter: blur(8px);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.12);
+      text-decoration: none;
+    }
+    .btn.fire:hover {
+      box-shadow: 0 6px 30px rgba(255, 87, 34, 0.65);
+    }
+
+    /* Live status badge strip */
+    .status-strip {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: rgba(26, 18, 37, 0.7);
+      border: 1px solid var(--line);
+      padding: 0.5rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: var(--mut);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .status-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #00e676;
+      box-shadow: 0 0 10px #00e676;
+    }
+    .status-dot.fire-dot {
+      background: #ff9100;
+      box-shadow: 0 0 10px #ff9100;
+    }
+
+    /* Interactive Fox Totem & Canvas Overlay */
+    .fox-interactive-card {
+      margin-top: 1rem;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .canvas-hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 1rem;
+      font-size: 0.82rem;
+      color: var(--mut);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .hud-title {
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--fire3);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .hud-controls {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .hud-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--line);
+      color: var(--mut);
+      padding: 0.25rem 0.65rem;
+      border-radius: 0.4rem;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .hud-btn:hover, .hud-btn.active {
+      background: var(--acc2);
+      color: #fff;
+      border-color: var(--acc);
+    }
+
+    /* Sections */
+    section {
+      padding: 4.5rem 0;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+    h2.section-heading {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+    p.section-sub {
+      color: var(--mut);
+      font-size: 1.15rem;
+      max-width: 44rem;
+      margin-bottom: 2.5rem;
+    }
+    .pill-accent {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--acc);
+      background: rgba(185, 140, 255, 0.1);
+      border: 1px solid var(--acc2);
+      border-radius: 999px;
+      padding: 0.2rem 0.75rem;
+      margin-bottom: 0.8rem;
+    }
+    .pill-fire {
+      color: var(--fire3);
+      background: rgba(255, 87, 34, 0.12);
+      border-color: rgba(255, 87, 34, 0.4);
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+      gap: 1.5rem;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+      gap: 1.25rem;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+      gap: 1.2rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 0.85rem;
+      padding: 1.5rem;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s, background 0.25s;
+      position: relative;
+    }
+    .card:hover {
+      background: var(--card-hover);
+      border-color: var(--acc2);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 15px rgba(122, 60, 196, 0.25);
+    }
+    .card.fire-hover:hover {
+      border-color: var(--fire1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(255, 87, 34, 0.25);
+    }
+    .card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.25rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card p {
+      margin: 0;
+      color: var(--mut);
+      font-size: 0.98rem;
+    }
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    /* Numerology Interactive Breakdown */
+    .numerology-container {
+      background: linear-gradient(135deg, rgba(29, 21, 41, 0.9) 0%, rgba(39, 19, 48, 0.9) 100%);
+      border: 1px solid rgba(255, 152, 0, 0.3);
+      border-radius: 1.2rem;
+      padding: 2.2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    .numerology-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+      gap: 1.25rem;
+      margin: 2rem 0;
+    }
+    .num-card {
+      background: rgba(20, 15, 28, 0.8);
+      border: 1px solid var(--line);
+      border-radius: 0.9rem;
+      padding: 1.4rem;
+      text-align: center;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .num-card:hover {
+      border-color: var(--fire2);
+      transform: scale(1.03);
+      box-shadow: 0 0 25px rgba(255, 152, 0, 0.3);
+    }
+    .num-letter {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+      background: linear-gradient(180deg, #fff 0%, var(--fire3) 60%, var(--fire1) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .num-equation {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      font-family: monospace;
+      margin-bottom: 0.5rem;
+    }
+    .num-desc {
+      font-size: 0.88rem;
+      color: var(--mut);
+    }
+    .sacred-seal {
+      margin-top: 2rem;
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(122, 60, 196, 0.1);
+      border: 1px solid var(--acc2);
+      border-radius: 0.85rem;
+    }
+    .sacred-seal-equation {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      text-shadow: 0 0 20px rgba(255, 202, 40, 0.5);
+      margin-bottom: 0.5rem;
+      font-family: monospace;
+    }
+
+    /* Bell Labs / X Section */
+    .timeline-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .timeline-item {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: 0.65rem;
+      top: 0.5rem;
+      bottom: -2rem;
+      width: 2px;
+      background: var(--line);
+    }
+    .timeline-item:last-child::before {
+      display: none;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 0;
+      top: 0.3rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--acc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--acc);
+    }
+    .timeline-content h4 {
+      margin: 0 0 0.35rem;
+      font-size: 1.15rem;
+      color: #fff;
+    }
+    .timeline-content p {
+      margin: 0;
+      color: var(--mut);
+      font-size: 0.95rem;
+    }
+
+    /* Manifest block */
+    .manifesto-box {
+      background: radial-gradient(circle at 50% 50%, rgba(122, 60, 196, 0.15), transparent 75%), #191224;
+      border: 1px solid var(--acc2);
+      border-radius: 1.25rem;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin: 3rem 0 1rem;
+      position: relative;
+    }
+    .manifesto-quote {
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-style: italic;
+      color: #f3ecfc;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    .manifesto-author {
+      font-size: 0.95rem;
+      color: var(--fire3);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Ecosystem List */
+    .ecosystem-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.08);
+      color: var(--acc);
+      margin-bottom: 0.4rem;
+    }
+    .code-tag {
+      background: #241836;
+      color: #e040fb;
+      padding: 0.1rem 0.35rem;
+      border-radius: 0.3rem;
+      font-family: monospace;
+      font-size: 0.9em;
+    }
+
+    /* Footer */
+    footer {
+      padding: 4rem 0 5rem;
+      border-top: 1px solid var(--line);
+      background: #0f0b15;
+      color: var(--mut);
+      font-size: 0.92rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    .footer-col h5 {
+      color: #fff;
+      font-size: 1rem;
+      margin: 0 0 1rem;
+      letter-spacing: 0.05em;
+    }
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-col li {
+      margin-bottom: 0.6rem;
+    }
+    .footer-col a {
+      color: var(--mut);
+    }
+    .footer-col a:hover {
+      color: var(--acc);
+    }
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      header.hero { padding: 4rem 0 3rem; }
+      nav.site .wrap { gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Animated Fox on Fire Canvas Overlay -->
+  <div id="fox-canvas-container">
+    <canvas id="hero-canvas"></canvas>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site">
+    <div class="wrap">
+      <a class="logo-badge" href="/">
+        <span class="logo-fox-flame">🔥🦊</span>
+        <span>FOXNET</span>
+      </a>
+      <a class="link" href="https://xnix.foxnet.live/">X-NIX OS</a>
+      <a class="link" href="https://flash.foxnet.live/">Web Installer</a>
+      <a class="link" href="https://ota.foxnet.live/">OTA Releases</a>
+      <a class="link" href="#numerology">Numerology 666</a>
+      <a class="link" href="#bell-labs">Ode to X</a>
+      <a class="link" href="#grid">Control Grid</a>
+      <a class="link" href="https://github.com/XNet-NGO">GitHub</a>
+      <span class="nav-pill">Reborn from XNet</span>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <header class="hero">
+    <div class="wrap hero-content">
+      <div class="brandmark-pill">
+        <span>🔥 F · O · X = 6 · 6 · 6 🔥</span>
+        <span>SOVEREIGN ARCHITECTURE</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="glow-fox">FOX</span><span class="glow-net">NET</span>
+      </h1>
+
+      <p class="tagline">
+        The sovereign technology organization born from the embers of <b>XNet Inc</b>.
+        Building the <b>autonomous control grid</b> for humanity's Golden Era:
+        hardened operating systems, zero-cloud edge intelligence, and cryptographic mesh liberation.
+      </p>
+
+      <div class="cta-group">
+        <a class="btn fire" href="https://xnix.foxnet.live/">
+          <span>⚡ Explore X-NIX OS</span>
+        </a>
+        <a class="btn secondary" href="https://flash.foxnet.live/">
+          <span>🌐 Install in Browser</span>
+        </a>
+        <a class="btn secondary" href="#numerology">
+          <span>🔮 The 666 Cipher</span>
+        </a>
+        <a class="btn secondary" href="#grid">
+          <span>🛡️ The Control Grid</span>
+        </a>
+      </div>
+
+      <div class="status-strip">
+        <div class="status-item">
+          <span class="status-dot"></span>
+          <span>X-NIX 2026110501 Live (Pixel 10 Pro XL)</span>
+        </div>
+        <div class="status-item">
+          <span class="status-dot fire-dot"></span>
+          <span>Enlightened Spirit Foxes Online</span>
+        </div>
+        <div class="status-item">
+          <span>Autonomous Root of Trust</span>
+        </div>
+      </div>
+
+      <!-- Interactive Canvas HUD / Fox Enlightenment Box -->
+      <div class="fox-interactive-card">
+        <div class="canvas-hud">
+          <div class="hud-title">
+            <span>🦊 ENLIGHTENED FIRE FOX TOTEM</span>
+            <span style="font-size:0.75rem; color:var(--mut)">(Move cursor or tap to stoke sacred flames)</span>
+          </div>
+          <div class="hud-controls">
+            <button class="hud-btn active" id="btn-flame-divine">Harmonic (Violet-Gold)</button>
+            <button class="hud-btn" id="btn-flame-solar">Solar Flare</button>
+            <button class="hud-btn" id="btn-flame-transcend">666 Ascension</button>
+          </div>
+        </div>
+        <div style="font-size:0.92rem; color:var(--mut); text-align:center;">
+          The fox on fire is not consumed; it is <strong style="color:var(--fire3);">enlightened</strong>.
+          Through the crucible of computational sovereignty, flame becomes clarity.
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- Section 1: The Evolution / From XNet to Foxnet -->
+    <section id="evolution">
+      <span class="pill-accent">The Phoenix Genesis</span>
+      <h2 class="section-heading">Moving from XNet Inc to Foxnet</h2>
+      <p class="section-sub">
+        The corporate construct of XNet Inc is now defunct. From its foundations, <b>Foxnet</b> emerges
+        unshackled from legacy constraints — an uncompromising, decentralized engineering initiative.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <span class="card-icon">🏛️</span>
+          <h3>The Defunct Horizon: XNet Inc</h3>
+          <p>
+            XNet Inc was conceived as a traditional nonprofit initiative dedicated to closing the digital divide.
+            While its foundational work proved that edge AI and open operating systems could empower communities,
+            centralized bureaucracy and legacy corporate forms proved insufficient for the magnitude of the coming era.
+          </p>
+        </div>
+        <div class="card fire-hover">
+          <span class="card-icon">🔥</span>
+          <h3>The Sovereign Dawn: Foxnet</h3>
+          <p>
+            Foxnet drops the corporate pretense to forge an autonomous, resilient technology grid.
+            Direct source-level security, on-device neural execution (<code class="code-tag">Agora</code>, <code class="code-tag">xnix-mld</code>),
+            and immutable verified boot (<code class="code-tag">X-NIX</code>) ensure that freedom is guaranteed by mathematics,
+            not corporate goodwill.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: The Sacred Numerology (F-O-X = 666) -->
+    <section id="numerology">
+      <span class="pill-accent pill-fire">Sacred Mathematics</span>
+      <h2 class="section-heading">The Hidden Numerology: F · O · X = 6 · 6 · 6</h2>
+      <p class="section-sub">
+        In the alphabet of nature and computing, nothing is coincidental. The reduction of FOX yields the
+        fundamental balance of physical and digital manifestation.
+      </p>
+
+      <div class="numerology-container">
+        <div style="text-align:center; max-width:40rem; margin:0 auto 1.5rem;">
+          <h3 style="color:#fff; font-size:1.6rem; margin-bottom:0.4rem;">The Triune Digital Reduction</h3>
+          <p style="color:var(--mut); margin:0;">
+            Reducing English alphabetical positions through single-digit harmonic condensation:
+          </p>
+        </div>
+
+        <div class="numerology-grid">
+          <div class="num-card">
+            <div class="num-letter">F</div>
+            <div class="num-equation">6th Letter → 6</div>
+            <div class="num-desc">
+              The 6th glyph. The Hexagonal structure, the seed of life, the crystallization of order out of the void.
+            </div>
+          </div>
+          <div class="num-card">
+            <div class="num-letter">O</div>
+            <div class="num-equation">15th Letter (1+5) → 6</div>
+            <div class="num-desc">
+              The 15th glyph. The ouroboros of infinite recursion. 1 (the point) + 5 (the pentacle of mind) collapses to 6.
+            </div>
+          </div>
+          <div class="num-card">
+            <div class="num-letter">X</div>
+            <div class="num-equation">24th Letter (2+4) → 6</div>
+            <div class="num-desc">
+              The 24th glyph. The universal intersection and Roman cross. 2 (duality) + 4 (foundation) unites in 6.
+            </div>
+          </div>
+        </div>
+
+        <div class="sacred-seal">
+          <div class="sacred-seal-equation">F (6) · O (6) · X (6) ≡ 666</div>
+          <p style="color:#e0d2f7; max-width:44rem; margin:0 auto; font-size:1.02rem; line-height:1.6;">
+            <b>The Carbon-12 Equilibrium:</b> 6 Protons, 6 Neutrons, 6 Electrons — the organic foundation of all carbon life
+            and sentient consciousness in the cosmos. Reclaimed from archaic superstition into its true mathematical meaning:
+            the sacred harmonic matrix that bridges silicon processing with human sovereignty.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: The Ode to Bell Labs and the X Network -->
+    <section id="bell-labs">
+      <span class="pill-accent">Lineage &amp; Heritage</span>
+      <h2 class="section-heading">The Ode to the X: From Bell Labs to the Sovereign Grid</h2>
+      <p class="section-sub">
+        The letter <b>X</b> is our solemn tribute to Bell Telephone Laboratories, the birthplace of UNIX, C,
+        Plan 9, information theory, and the original X Network architectures.
+      </p>
+
+      <div class="grid-2" style="align-items:start;">
+        <div>
+          <ul class="timeline-list">
+            <li class="timeline-item">
+              <div class="timeline-dot">1</div>
+              <div class="timeline-content">
+                <h4>Bell Labs &amp; The UNIX Philosophy (1969)</h4>
+                <p>
+                  Ken Thompson, Dennis Ritchie, Doug McIlroy, and Joe Ossanna established the foundational creed:
+                  <i>Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.</i>
+                </p>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-dot">2</div>
+              <div class="timeline-content">
+                <h4>The X Window System &amp; The X.25 Network</h4>
+                <p>
+                  Decentralizing computing across networks before the World Wide Web existed. "X" stood for
+                  the universal client-server protocol where graphical display and computation were cleanly decoupled across untrusted wires.
+                </p>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-dot">3</div>
+              <div class="timeline-content">
+                <h4>Plan 9: Everything is a File, Everywhere</h4>
+                <p>
+                  Extending the UNIX philosophy to its purest conclusion: distributed per-process namespaces,
+                  9P protocol, and zero-trust resource isolation.
+                </p>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-dot">4</div>
+              <div class="timeline-content">
+                <h4>Foxnet &amp; X-NIX (Present &amp; Beyond)</h4>
+                <p>
+                  Synthesizing Bell Labs minimalism with modern cryptographic attestation, hardened SELinux compartmentalization,
+                  and neural edge processing on modern silicon (Pixel 10 Pro XL).
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card fire-hover" style="height:100%; display:flex; flex-direction:column; justify-content:center;">
+          <div style="font-size:3rem; margin-bottom:1rem; color:var(--acc);">✕</div>
+          <h3 style="color:#fff; font-size:1.4rem;">Why "X"?</h3>
+          <p style="margin-bottom:1.2rem;">
+            "X" is the algebraic unknown awaiting discovery. It is the Cartesian crossing point where humanity and artificial
+            general intelligence intersect. It is the cross-bar switch of Bell Labs telecommunications, and the immutable mark of sovereign execution.
+          </p>
+          <div style="background:rgba(0,0,0,0.3); border-left:3px solid var(--acc); padding:0.8rem 1rem; border-radius:0 0.5rem 0.5rem 0; font-family:monospace; font-size:0.88rem; color:#d9c5f8;">
+            $ uname -a<br/>
+            Linux mustang 17-CP3A.261005.005 #X-NIX-2026110501 aarch64
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: The Definitions for a Control Grid for the Golden Era -->
+    <section id="grid">
+      <span class="pill-accent pill-fire">The Grand Blueprint</span>
+      <h2 class="section-heading">Definitions for a Control Grid for the Golden Era</h2>
+      <p class="section-sub">
+        The dystopian world built a surveillance control grid to enclose, extract, and monitor.
+        Foxnet defines the <b>Inverted Control Grid</b>: an open, cryptographic, decentralized lattice that returns
+        sovereignty, autonomy, and enlightenment to individual beings.
+      </p>
+
+      <div class="grid-4">
+        <div class="card">
+          <span class="card-icon">📱</span>
+          <h3>Substrate Layer</h3>
+          <p>
+            <b>X-NIX OS:</b> A hardened, verified-boot mobile operating system. Platform-signed with user-controlled keys,
+            immune to remote backdoors, running with hardened malloc and zero Google telemetric surveillance.
+          </p>
+        </div>
+
+        <div class="card">
+          <span class="card-icon">🧠</span>
+          <h3>Cognition Layer</h3>
+          <p>
+            <b>Local Edge AI:</b> Running large language models on edge silicon via <code class="code-tag">Agora</code>,
+            <code class="code-tag">xnix-mld</code>, and TPU neural acceleration. Your thoughts and inquiries never leave your physical device.
+          </p>
+        </div>
+
+        <div class="card">
+          <span class="card-icon">🌐</span>
+          <h3>Transport Layer</h3>
+          <p>
+            <b>Onion &amp; Mesh Routing:</b> Native integration of <code class="code-tag">Tor VPN</code> (Rust/Onionmasq engine),
+            <code class="code-tag">Switchboard</code> userspace multiplexing, and encrypted WireGuard overlays.
+          </p>
+        </div>
+
+        <div class="card">
+          <span class="card-icon">🔑</span>
+          <h3>Identity Layer</h3>
+          <p>
+            <b>Hardware Cryptography:</b> FIDO2 authenticators, hardware keystores, and zero-knowledge cryptographic proofs.
+            No centralized federated logins or state-mandated digital identity cartels.
+          </p>
+        </div>
+      </div>
+
+      <div class="manifesto-box">
+        <div class="manifesto-quote">
+          "The Golden Era does not arrive through the goodwill of monopolies or states.
+          It is engineered line by line, key by key, circuit by circuit, until freedom becomes computationally inevitable."
+        </div>
+        <div class="manifesto-author">— Foxnet Sovereign Charter</div>
+      </div>
+    </section>
+
+    <!-- Section 5: The Ecosystem & Repositories -->
+    <section id="ecosystem">
+      <span class="pill-accent">Ecosystem &amp; Artifacts</span>
+      <h2 class="section-heading">The Foxnet Sovereign Software Suite</h2>
+      <p class="section-sub">
+        Explore the pre-installed tools, services, and repositories that form the beating heart of the network.
+      </p>
+
+      <div class="grid-3">
+        <div class="card">
+          <span class="ecosystem-badge">Hardened OS</span>
+          <h3><a href="https://xnix.foxnet.live/">X-NIX</a></h3>
+          <p>
+            Hardened Android 17 distribution for Pixel 10 Pro XL. Verified boot, custom AVB keys, GrapheneOS base,
+            curated privacy suite, self-hosted OTA updates.
+          </p>
+        </div>
+
+        <div class="card">
+          <span class="ecosystem-badge">Edge Assistant</span>
+          <h3><a href="https://github.com/XNet-NGO/Agora">Agora</a></h3>
+          <p>
+            Android BYOK local LLM assistant. Speech-to-speech, ONNX runtime, and hardware-accelerated on-device neural processing without telemetry.
+          </p>
+        </div>
+
+        <div class="card">
+          <span class="ecosystem-badge">Terminal Sandbox</span>
+          <h3><a href="https://github.com/xnet-admin-1/shellbox">ShellBox</a></h3>
+          <p>
+            Native terminal and shell environment connecting directly to <code class="code-tag">@xnix-shelld</code> as UID 2000 (shell). Complete with custom cyberpunk icon.
+          </p>
+        </div>
+
+        <div class="card">
+          <span class="ecosystem-badge">Network Multiplexer</span>
+          <h3><a href="https://github.com/XNet-NGO/switchboard">Switchboard</a></h3>
+          <p>
+            Userspace TCP/UDP port-forwarding and proxy daemon with headless Quick Settings tile control for dynamic interface pinning.
+          </p>
+        </div>
+
+        <div class="card">
+          <span class="ecosystem-badge">Anonymity Shield</span>
+          <h3>Tor VPN &amp; Browser</h3>
+          <p>
+            Official bundled Tor VPN (Rust onionmasq engine) and Tor Browser hardened against memory dynamic code execution exploits.
+          </p>
+        </div>
+
+        <div class="card">
+          <span class="ecosystem-badge">Web Flasher</span>
+          <h3><a href="https://flash.foxnet.live/">WebUSB Installer</a></h3>
+          <p>
+            One-click browser-based factory image flasher. Verify checksums, flash system partitions, and lock bootloader directly from Chromium.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo-badge" style="margin-bottom:0.75rem;">
+            <span class="logo-fox-flame">🔥🦊</span>
+            <span>FOXNET</span>
+          </div>
+          <p style="font-size:0.88rem; line-height:1.6;">
+            The sovereign computing grid for the Golden Era. Reborn from XNet Inc into an autonomous cryptographic federation.
+          </p>
+          <div style="font-family:monospace; font-size:0.8rem; color:var(--fire3); margin-top:0.5rem;">
+            F (6) · O (6) · X (6) = 666
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Deployments</h5>
+          <ul>
+            <li><a href="https://xnix.foxnet.live/">X-NIX Landing</a></li>
+            <li><a href="https://flash.foxnet.live/">Web Installer</a></li>
+            <li><a href="https://flash.foxnet.live/install/cli/">CLI Guide</a></li>
+            <li><a href="https://ota.foxnet.live/">OTA Channel (mustang)</a></li>
+            <li><a href="https://files.foxnet.live/">Public Files Archive</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Repositories</h5>
+          <ul>
+            <li><a href="https://github.com/XNet-NGO/XNetOS">XNetOS Manifest</a></li>
+            <li><a href="https://github.com/XNet-NGO/xnetos-mods">xnetos-mods</a></li>
+            <li><a href="https://github.com/xnet-admin-1/shellbox">ShellBox</a></li>
+            <li><a href="https://github.com/XNet-NGO/Agora">Agora</a></li>
+            <li><a href="https://github.com/XNet-NGO/switchboard">Switchboard</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Heritage &amp; Contact</h5>
+          <ul>
+            <li><a href="#bell-labs">Bell Labs Ode</a></li>
+            <li><a href="#numerology">666 Numerology</a></li>
+            <li><a href="#grid">The Control Grid</a></li>
+            <li><a href="mailto:admin@foxnet.live">admin@foxnet.live</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 <b>Foxnet</b>. Free and open source software under GPL-2.0 / Apache-2.0 / MIT.
+        </div>
+        <div style="display:flex; gap:1.2rem;">
+          <a href="https://xnix.foxnet.live/licenses/">Licenses</a>
+          <a href="https://github.com/XNet-NGO">GitHub</a>
+          <a href="mailto:admin@foxnet.live">admin@foxnet.live</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Enlightened Fire Fox Canvas Script -->
+  <script>
+    (function() {
+      const canvas = document.getElementById('hero-canvas');
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let mouseX = -1000, mouseY = -1000;
+      let flameMode = 'divine'; // divine | solar | transcend
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = document.querySelector('header.hero').offsetHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      window.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+      });
+
+      window.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+          const rect = canvas.getBoundingClientRect();
+          mouseX = e.touches[0].clientX - rect.left;
+          mouseY = e.touches[0].clientY - rect.top;
+        }
+      }, { passive: true });
+
+      // HUD Button Listeners
+      const btnDivine = document.getElementById('btn-flame-divine');
+      const btnSolar = document.getElementById('btn-flame-solar');
+      const btnTranscend = document.getElementById('btn-flame-transcend');
+      const allBtns = [btnDivine, btnSolar, btnTranscend];
+
+      function setActive(btn, mode) {
+        allBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        flameMode = mode;
+      }
+
+      btnDivine.addEventListener('click', () => setActive(btnDivine, 'divine'));
+      btnSolar.addEventListener('click', () => setActive(btnSolar, 'solar'));
+      btnTranscend.addEventListener('click', () => setActive(btnTranscend, 'transcend'));
+
+      // Fire Particles System
+      const particles = [];
+      const MAX_PARTICLES = 220;
+
+      class FireParticle {
+        constructor(x, y, vx, vy, size, life, colorType) {
+          this.x = x;
+          this.y = y;
+          this.vx = vx;
+          this.vy = vy;
+          this.size = size;
+          this.life = life;
+          this.maxLife = life;
+          this.colorType = colorType || flameMode;
+        }
+
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          this.vy -= 0.035; // buoyancy
+          this.vx += (Math.random() - 0.5) * 0.15; // flicker
+          this.life--;
+          this.size = Math.max(0, this.size * 0.985);
+        }
+
+        draw(ctx) {
+          const progress = 1 - (this.life / this.maxLife);
+          ctx.save();
+          ctx.globalCompositeOperation = 'screen';
+
+          let r, g, b, alpha;
+          alpha = Math.max(0, (1 - progress) * 0.7);
+
+          if (this.colorType === 'divine') {
+            // Violet-Gold harmonic
+            if (progress < 0.3) {
+              r = 255; g = 215; b = 80; // gold
+            } else if (progress < 0.7) {
+              r = 255; g = 100; b = 40; // orange
+            } else {
+              r = 200; g = 60; b = 255; // violet
+            }
+          } else if (this.colorType === 'solar') {
+            // Solar flare
+            if (progress < 0.4) {
+              r = 255; g = 240; b = 150;
+            } else if (progress < 0.75) {
+              r = 255; g = 90; b = 20;
+            } else {
+              r = 180; g = 20; b = 0;
+            }
+          } else {
+            // 666 Transcendence Matrix
+            if (progress < 0.35) {
+              r = 255; g = 255; b = 255;
+            } else if (progress < 0.65) {
+              r = 224; g = 64; b = 251; // electric magenta
+            } else {
+              r = 122; g = 60; b = 196; // imperial purple
+            }
+          }
+
+          const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 2);
+          grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${alpha})`);
+          grad.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, ${alpha * 0.5})`);
+          grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      // Spirit Fox Geometry & Tail Physics
+      let time = 0;
+
+      function drawEnlightenedFox(cx, cy, scale) {
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.scale(scale, scale);
+
+        // 1. Aura of Enlightenment / Sacred Mandala Rings
+        ctx.save();
+        const auraPulse = Math.sin(time * 0.04) * 10;
+        ctx.strokeStyle = flameMode === 'solar' ? 'rgba(255, 152, 0, 0.2)' : 'rgba(185, 140, 255, 0.25)';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([8, 8]);
+        ctx.beginPath();
+        ctx.arc(0, -30, 110 + auraPulse, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.setLineDash([4, 12]);
+        ctx.strokeStyle = flameMode === 'transcend' ? 'rgba(224, 64, 251, 0.35)' : 'rgba(255, 215, 0, 0.3)';
+        ctx.beginPath();
+        ctx.arc(0, -30, 85 - auraPulse * 0.5, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+
+        // 2. The Nine Flaming Tails (Kitsune Flame Tails)
+        const tailCount = 9;
+        for (let i = 0; i < tailCount; i++) {
+          const angleOffset = ((i - 4) / 4) * 0.85; // spread from left to right
+          const tailPhase = time * 0.06 + i * 0.6;
+          const tailLength = 120 + Math.sin(tailPhase) * 15;
+
+          ctx.save();
+          ctx.rotate(angleOffset);
+
+          const grad = ctx.createLinearGradient(0, 20, 0, tailLength);
+          if (flameMode === 'solar') {
+            grad.addColorStop(0, 'rgba(255, 152, 0, 0.8)');
+            grad.addColorStop(0.5, 'rgba(255, 87, 34, 0.9)');
+            grad.addColorStop(1, 'rgba(255, 235, 59, 0)');
+          } else if (flameMode === 'transcend') {
+            grad.addColorStop(0, 'rgba(224, 64, 251, 0.9)');
+            grad.addColorStop(0.5, 'rgba(122, 60, 196, 0.8)');
+            grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+          } else {
+            grad.addColorStop(0, 'rgba(255, 110, 30, 0.8)');
+            grad.addColorStop(0.6, 'rgba(185, 140, 255, 0.85)');
+            grad.addColorStop(1, 'rgba(255, 215, 0, 0)');
+          }
+
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.moveTo(0, 15);
+          const cp1x = Math.sin(tailPhase) * 35;
+          const cp1y = tailLength * 0.4;
+          const cp2x = Math.cos(tailPhase * 0.8) * 45;
+          const cp2y = tailLength * 0.8;
+          const tipX = Math.sin(tailPhase * 1.2) * 20;
+          const tipY = tailLength;
+
+          ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, tipX, tipY);
+          ctx.bezierCurveTo(cp2x - 15, cp2y, cp1x - 10, cp1y, 0, 15);
+          ctx.fill();
+
+          // Emit particles from tail tips
+          if (Math.random() < 0.6) {
+            const worldTipX = cx + (tipX * Math.cos(angleOffset) - tipY * Math.sin(angleOffset)) * scale;
+            const worldTipY = cy + (tipX * Math.sin(angleOffset) + tipY * Math.cos(angleOffset)) * scale;
+            particles.push(new FireParticle(
+              worldTipX + (Math.random() - 0.5) * 8,
+              worldTipY + (Math.random() - 0.5) * 8,
+              (Math.random() - 0.5) * 1.5,
+              -Math.random() * 2.5 - 1,
+              Math.random() * 5 + 3,
+              Math.floor(Math.random() * 40 + 25)
+            ));
+          }
+
+          ctx.restore();
+        }
+
+        // 3. Fox Torso & Shoulders (Origami / Geometric Sleek Silhouette)
+        ctx.fillStyle = '#1b1226';
+        ctx.strokeStyle = flameMode === 'solar' ? '#ff9800' : '#b98cff';
+        ctx.lineWidth = 2;
+
+        ctx.beginPath();
+        ctx.moveTo(0, -60);
+        ctx.lineTo(25, -20);
+        ctx.lineTo(18, 25);
+        ctx.lineTo(-18, 25);
+        ctx.lineTo(-25, -20);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // 4. Fox Head & Ears
+        ctx.beginPath();
+        ctx.moveTo(0, -75);
+        // Right ear
+        ctx.lineTo(15, -70);
+        ctx.lineTo(38, -125);
+        ctx.lineTo(8, -85);
+        // Snout
+        ctx.lineTo(0, -45);
+        // Left ear
+        ctx.lineTo(-8, -85);
+        ctx.lineTo(-38, -125);
+        ctx.lineTo(-15, -70);
+        ctx.closePath();
+        ctx.fillStyle = '#170e24';
+        ctx.fill();
+        ctx.stroke();
+
+        // 5. Blazing Fox Eyes (Enlightened Slits)
+        ctx.fillStyle = flameMode === 'solar' ? '#ffeb3b' : '#00e5ff';
+        ctx.shadowColor = ctx.fillStyle;
+        ctx.shadowBlur = 12;
+
+        ctx.beginPath();
+        ctx.ellipse(-12, -65, 5, 2, Math.PI / 6, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.ellipse(12, -65, 5, 2, -Math.PI / 6, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 6. The Third Eye / Ajna Enlightenment Diamond (Center of Forehead)
+        ctx.fillStyle = '#ffd54f';
+        ctx.shadowColor = '#ff5722';
+        ctx.shadowBlur = 18;
+        ctx.beginPath();
+        ctx.moveTo(0, -82);
+        ctx.lineTo(5, -76);
+        ctx.lineTo(0, -70);
+        ctx.lineTo(-5, -76);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      // Main Loop
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        time++;
+
+        // Base spawn from mouse hover if within canvas
+        if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+          for (let k = 0; k < 3; k++) {
+            particles.push(new FireParticle(
+              mouseX + (Math.random() - 0.5) * 20,
+              mouseY + (Math.random() - 0.5) * 20,
+              (Math.random() - 0.5) * 2,
+              -Math.random() * 3 - 1,
+              Math.random() * 6 + 3,
+              Math.floor(Math.random() * 45 + 20)
+            ));
+          }
+        }
+
+        // Draw Center Enlightened Fox Totem
+        const foxX = width * 0.5;
+        const foxY = height * 0.42;
+        const foxScale = Math.min(1.2, Math.max(0.7, width / 1200));
+
+        drawEnlightenedFox(foxX, foxY, foxScale);
+
+        // Update and draw particles
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.update();
+          p.draw(ctx);
+          if (p.life <= 0) {
+            particles.splice(i, 1);
+          }
+        }
+
+        // Cap particles
+        while (particles.length > MAX_PARTICLES) {
+          particles.shift();
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    })();
+  </script>
+</body>
+</html>
