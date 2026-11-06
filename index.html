@@ -195,6 +195,62 @@
       justify-content: center;
       margin-bottom: 2.5rem;
     }
+    .nav-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid var(--acc);
+      background: rgba(185, 140, 255, 0.15);
+      color: #fff;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    .nav-pill-btn:hover {
+      background: var(--acc);
+      color: #140f1c;
+      box-shadow: 0 0 12px var(--acc);
+    }
+    .toast-notification {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      background: rgba(22, 14, 34, 0.95);
+      border: 1px solid var(--acc);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(185, 140, 255, 0.35);
+      padding: 0.85rem 1.35rem;
+      border-radius: 0.85rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast-notification.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    @media (max-width: 768px) {
+      .toast-notification {
+        bottom: 1rem;
+        right: 1rem;
+        left: 1rem;
+        justify-content: center;
+      }
+    }
     .btn {
       display: inline-flex;
       align-items: center;
@@ -729,6 +785,10 @@
       <a class="link" href="#grid">Control Grid</a>
       <a class="link" href="https://github.com/XNet-NGO">GitHub</a>
       <span class="nav-pill">Reborn from XNet</span>
+      <button class="nav-pill-btn" id="btn-copy-md" title="Copy Foxnet Architecture in Markdown (.md)">
+        <span>📋 Copy as .md</span>
+      </button>
+      <a class="nav-pill" href="/index.md" target="_blank" title="View raw Markdown">.md</a>
     </div>
   </nav>
 
@@ -761,6 +821,9 @@
         <a class="btn secondary" href="https://flash.foxnet.live/">
           <span>🌐 Install in Browser</span>
         </a>
+        <button class="btn secondary" id="hero-copy-md-btn" title="Copy entire architecture as Markdown (.md)">
+          <span>📋 Copy in .md</span>
+        </button>
         <a class="btn secondary" href="#bell-labs">
           <span>📡 Future X Network</span>
         </a>
@@ -895,7 +958,12 @@
 
     <!-- Section 3: The Ode to Bell Labs and the Future X Network -->
     <section id="bell-labs">
-      <span class="pill-accent">Lineage &amp; Heritage</span>
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
+        <span class="pill-accent" style="margin:0;">Lineage &amp; Heritage</span>
+        <button class="nav-pill-btn" id="treatise-copy-md-btn" title="Copy Future X Architecture Treatise as Markdown (.md)">
+          <span>📋 Copy Treatise (.md)</span>
+        </button>
+      </div>
       <h2 class="section-heading">The Ode to the X: From Bell Labs to the Future X Network</h2>
       <p class="section-sub">
         The letter <b>X</b> is our solemn tribute to Bell Telephone Laboratories — the birthplace of UNIX, C,
@@ -1518,7 +1586,10 @@
         <div>
           © 2026 <b>Foxnet</b>. Free and open source software under GPL-2.0 / Apache-2.0 / MIT.
         </div>
-        <div style="display:flex; gap:1.2rem;">
+        <div style="display:flex; gap:1.2rem; flex-wrap:wrap;">
+          <a href="/index.md" target="_blank" style="color:var(--fire3); font-weight:600;">index.md</a>
+          <a href="/llms.txt" target="_blank">llms.txt</a>
+          <a href="/robots.txt" target="_blank">robots.txt</a>
           <a href="https://xnix.foxnet.live/licenses/">Licenses</a>
           <a href="https://github.com/XNet-NGO">GitHub</a>
           <a href="mailto:admin@foxnet.live">admin@foxnet.live</a>
@@ -1526,6 +1597,15 @@
       </div>
     </div>
   </footer>
+
+  <!-- Floating Toast Notification for Copy in .md -->
+  <div id="toast-notification" class="toast-notification">
+    <span style="font-size:1.4rem;">✨</span>
+    <div>
+      <div style="font-weight:700; color:#fff; font-size:0.92rem;">Copied to clipboard as Markdown (.md)!</div>
+      <div style="color:var(--mut); font-size:0.78rem;">Full sovereign stack &amp; Future X treatise ready to paste.</div>
+    </div>
+  </div>
 
   <!-- Interactive Enlightened Fire Fox Canvas Script -->
   <script>
@@ -1901,6 +1981,76 @@
       }
 
       requestAnimationFrame(animate);
+
+      // Copy in .md functionality
+      const copyButtons = [
+        document.getElementById('btn-copy-md'),
+        document.getElementById('hero-copy-md-btn'),
+        document.getElementById('treatise-copy-md-btn')
+      ].filter(Boolean);
+
+      const toast = document.getElementById('toast-notification');
+      let toastTimeout;
+
+      function showToast() {
+        if (!toast) return;
+        toast.classList.add('show');
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3500);
+      }
+
+      async function copyPageMarkdown(buttonElement) {
+        try {
+          let text = "";
+          try {
+            const res = await fetch('/index.md');
+            if (res.ok) {
+              text = await res.text();
+            }
+          } catch (e) {
+            // fallback
+          }
+
+          if (!text || text.length < 50) {
+            text = `# Foxnet — The Sovereign Control Grid for the Golden Era\n\n` +
+              `> Reborn from XNet into an autonomous, hardened architecture. F·O·X = 6·6·6.\n\n` +
+              `* Website: https://foxnet.live\n` +
+              `* OS: https://xnix.foxnet.live\n` +
+              `* Web Installer: https://flash.foxnet.live\n` +
+              `* OTA: https://ota.foxnet.live\n` +
+              `* GitHub: https://github.com/XNet-NGO\n\n` +
+              `The Augmented Intelligence Axiom: AugI = HI + AI\n\n` +
+              `Full architectural documentation available at: https://foxnet.live/index.md`;
+          }
+
+          await navigator.clipboard.writeText(text);
+          showToast();
+
+          if (buttonElement) {
+            const originalHTML = buttonElement.innerHTML;
+            buttonElement.innerHTML = `<span>✓ Copied as .md!</span>`;
+            buttonElement.style.borderColor = "#00e676";
+            buttonElement.style.color = "#00e676";
+            setTimeout(() => {
+              buttonElement.innerHTML = originalHTML;
+              buttonElement.style.borderColor = "";
+              buttonElement.style.color = "";
+            }, 2500);
+          }
+        } catch (err) {
+          console.error("Clipboard copy error:", err);
+          showToast();
+        }
+      }
+
+      copyButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          copyPageMarkdown(btn);
+        });
+      });
     })();
   </script>
 </body>

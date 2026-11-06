@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# LLM and AI Agent Discovery
+Allow: /index.md
+Allow: /llms.txt
+Allow: /foxnet.md
+
+# Official Sitemap
+Sitemap: https://foxnet.live/sitemap.xml
