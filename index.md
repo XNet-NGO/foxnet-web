@@ -1,6 +1,6 @@
 # Foxnet — The Sovereign Control Grid for the Golden Era
 
-> Reborn from XNet into an autonomous, hardened architecture. F·O·X = 6·6·6. An ode to Bell Labs and the sovereign computing grid.
+> Reborn from XNet into an autonomous, hardened architecture. An ode to Bell Labs and the sovereign computing grid.
 
 * **Website**: [https://foxnet.live](https://foxnet.live)
 * **X-NIX Operating System**: [https://xnix.foxnet.live](https://xnix.foxnet.live)
@@ -61,22 +61,7 @@ True cognitive evolution mandates **Augmented Intelligence**: combining Human In
 
 ---
 
-## 4. The Sacred Numerology: F·O·X = 6·6·6
-
-In the English reduction cipher:
-* **F** = 6th letter of the alphabet
-* **O** = 15th letter $\rightarrow 1 + 5 = 6$
-* **X** = 24th letter $\rightarrow 2 + 4 = 6$
-$$\mathbf{F \cdot O \cdot X \implies 6 \cdot 6 \cdot 6}$$
-
-### The Triad of Sovereign Computation
-* **6 Protons, 6 Neutrons, 6 Electrons**: The atomic structure of Carbon-12 — the fundamental physical bedrock of organic life.
-* **$16 = 2^4$ (Hexadecimal)**: The base-16 mathematical substrate of computing, memory addressing, cryptographic hashes, and machine code.
-* **The Triangle of Harmony**: 6 is the first perfect number ($1 + 2 + 3 = 6$ and $1 \times 2 \times 3 = 6$). In sovereign computation, 666 represents the convergence of Silicon, Mathematics, and Consciousness.
-
----
-
-## 5. The Foxnet Sovereign Stack
+## 4. The Foxnet Sovereign Stack
 
 1. **X-NIX Operating System**
    * Hardened GrapheneOS downstream fork compiled strictly from source for Pixel 10 Pro XL (`mustang`).
