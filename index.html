@@ -65,6 +65,7 @@
       left: 0;
       width: 100%;
       height: 100%;
+      display: block;
       pointer-events: auto;
       cursor: crosshair;
     }
@@ -146,6 +147,14 @@
       z-index: 3;
       max-width: 52rem;
       margin: 0 auto;
+      pointer-events: none;
+    }
+    .hero-content a,
+    .hero-content button,
+    .hero-content .cta-group,
+    .hero-content .fox-interactive-card,
+    .hero-content .brandmark-pill {
+      pointer-events: auto;
     }
     .brandmark-pill {
       display: inline-flex;
@@ -620,11 +629,6 @@
 </head>
 <body>
 
-  <!-- Dynamic Animated Fox on Fire Canvas Overlay -->
-  <div id="fox-canvas-container">
-    <canvas id="hero-canvas"></canvas>
-  </div>
-
   <!-- Navigation -->
   <nav class="site">
     <div class="wrap">
@@ -645,6 +649,11 @@
 
   <!-- Hero Header -->
   <header class="hero">
+    <!-- Dynamic Animated Multi-tailed Fire Fox Canvas Overlay -->
+    <div id="fox-canvas-container">
+      <canvas id="hero-canvas"></canvas>
+    </div>
+
     <div class="wrap hero-content">
       <div class="brandmark-pill">
         <span>SOVEREIGN ARCHITECTURE · AUTONOMOUS GRID</span>
@@ -1438,15 +1447,19 @@
     (function() {
       const canvas = document.getElementById('hero-canvas');
       const ctx = canvas.getContext('2d');
-      let width, height;
+      let width = 0, height = 0;
       let mouseX = -1000, mouseY = -1000;
       let flameMode = 'divine'; // divine | solar | transcend
 
       function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = document.querySelector('header.hero').offsetHeight;
+        const hero = document.querySelector('header.hero');
+        if (!hero) return;
+        const rect = hero.getBoundingClientRect();
+        width = canvas.width = Math.floor(rect.width);
+        height = canvas.height = Math.floor(rect.height);
       }
       window.addEventListener('resize', resize);
+      window.addEventListener('load', resize);
       resize();
 
       window.addEventListener('mousemove', (e) => {
@@ -1470,18 +1483,19 @@
       const allBtns = [btnDivine, btnSolar, btnTranscend];
 
       function setActive(btn, mode) {
-        allBtns.forEach(b => b.classList.remove('active'));
+        if (!btn) return;
+        allBtns.forEach(b => { if (b) b.classList.remove('active'); });
         btn.classList.add('active');
         flameMode = mode;
       }
 
-      btnDivine.addEventListener('click', () => setActive(btnDivine, 'divine'));
-      btnSolar.addEventListener('click', () => setActive(btnSolar, 'solar'));
-      btnTranscend.addEventListener('click', () => setActive(btnTranscend, 'transcend'));
+      if (btnDivine) btnDivine.addEventListener('click', () => setActive(btnDivine, 'divine'));
+      if (btnSolar) btnSolar.addEventListener('click', () => setActive(btnSolar, 'solar'));
+      if (btnTranscend) btnTranscend.addEventListener('click', () => setActive(btnTranscend, 'transcend'));
 
       // Fire Particles System
       const particles = [];
-      const MAX_PARTICLES = 220;
+      const MAX_PARTICLES = 250;
 
       class FireParticle {
         constructor(x, y, vx, vy, size, life, colorType) {
@@ -1498,10 +1512,10 @@
         update() {
           this.x += this.vx;
           this.y += this.vy;
-          this.vy -= 0.035; // buoyancy
-          this.vx += (Math.random() - 0.5) * 0.15; // flicker
+          this.vy -= 0.04; // buoyancy
+          this.vx += (Math.random() - 0.5) * 0.18; // flicker
           this.life--;
-          this.size = Math.max(0, this.size * 0.985);
+          this.size = Math.max(0, this.size * 0.982);
         }
 
         draw(ctx) {
@@ -1510,34 +1524,34 @@
           ctx.globalCompositeOperation = 'screen';
 
           let r, g, b, alpha;
-          alpha = Math.max(0, (1 - progress) * 0.7);
+          alpha = Math.max(0, (1 - progress) * 0.75);
 
           if (this.colorType === 'divine') {
             // Violet-Gold harmonic
             if (progress < 0.3) {
-              r = 255; g = 215; b = 80; // gold
+              r = 255; g = 215; b = 80;
             } else if (progress < 0.7) {
-              r = 255; g = 100; b = 40; // orange
+              r = 255; g = 100; b = 40;
             } else {
-              r = 200; g = 60; b = 255; // violet
+              r = 185; g = 80; b = 255;
             }
           } else if (this.colorType === 'solar') {
             // Solar flare
-            if (progress < 0.4) {
-              r = 255; g = 240; b = 150;
+            if (progress < 0.35) {
+              r = 255; g = 245; b = 160;
             } else if (progress < 0.75) {
-              r = 255; g = 90; b = 20;
+              r = 255; g = 95; b = 20;
             } else {
-              r = 180; g = 20; b = 0;
+              r = 190; g = 25; b = 0;
             }
           } else {
             // 666 Transcendence Matrix
-            if (progress < 0.35) {
+            if (progress < 0.3) {
               r = 255; g = 255; b = 255;
             } else if (progress < 0.65) {
-              r = 224; g = 64; b = 251; // electric magenta
+              r = 224; g = 64; b = 251;
             } else {
-              r = 122; g = 60; b = 196; // imperial purple
+              r = 122; g = 60; b = 196;
             }
           }
 
@@ -1560,154 +1574,212 @@
       function drawEnlightenedFox(cx, cy, scale) {
         ctx.save();
         ctx.translate(cx, cy);
-        ctx.scale(scale, scale);
 
-        // 1. Aura of Enlightenment / Sacred Mandala Rings
+        // 1. Aura of Enlightenment / Rotating Sacred Mandala Rings
         ctx.save();
-        const auraPulse = Math.sin(time * 0.04) * 10;
-        ctx.strokeStyle = flameMode === 'solar' ? 'rgba(255, 152, 0, 0.2)' : 'rgba(185, 140, 255, 0.25)';
+        const auraPulse = Math.sin(time * 0.04) * 12;
+        ctx.strokeStyle = flameMode === 'solar' ? 'rgba(255, 152, 0, 0.3)' : (flameMode === 'transcend' ? 'rgba(224, 64, 251, 0.35)' : 'rgba(185, 140, 255, 0.3)');
         ctx.lineWidth = 1.5;
         ctx.setLineDash([8, 8]);
         ctx.beginPath();
-        ctx.arc(0, -30, 110 + auraPulse, 0, Math.PI * 2);
+        ctx.arc(0, -35 * scale, (120 + auraPulse) * scale, 0, Math.PI * 2);
         ctx.stroke();
 
-        ctx.setLineDash([4, 12]);
-        ctx.strokeStyle = flameMode === 'transcend' ? 'rgba(224, 64, 251, 0.35)' : 'rgba(255, 215, 0, 0.3)';
+        ctx.setLineDash([4, 14]);
+        ctx.strokeStyle = flameMode === 'solar' ? 'rgba(255, 235, 59, 0.35)' : 'rgba(255, 215, 64, 0.35)';
         ctx.beginPath();
-        ctx.arc(0, -30, 85 - auraPulse * 0.5, 0, Math.PI * 2);
+        ctx.arc(0, -35 * scale, (90 - auraPulse * 0.5) * scale, 0, Math.PI * 2);
         ctx.stroke();
         ctx.restore();
 
-        // 2. The Nine Flaming Tails (Kitsune Flame Tails)
+        // 2. The Nine Flaming Kitsune Tails (Fanning UPWARDS and Outwards)
         const tailCount = 9;
         for (let i = 0; i < tailCount; i++) {
-          const angleOffset = ((i - 4) / 4) * 0.85; // spread from left to right
-          const tailPhase = time * 0.06 + i * 0.6;
-          const tailLength = 120 + Math.sin(tailPhase) * 15;
+          // Arc spreading from left-up (-165 deg) to right-up (-15 deg) around straight-up (-90 deg)
+          const baseAngle = -Math.PI / 2 + ((i - 4) / 4) * (Math.PI * 0.44);
+          const wave1 = Math.sin(time * 0.045 + i * 0.58);
+          const wave2 = Math.cos(time * 0.07 + i * 0.82);
+          const currentAngle = baseAngle + wave1 * 0.09;
+          const tailLength = (175 + Math.sin(time * 0.055 + i * 0.65) * 18) * scale;
+
+          const tipX = Math.cos(currentAngle) * tailLength;
+          const tipY = Math.sin(currentAngle) * tailLength;
+          const midX = Math.cos(currentAngle + wave2 * 0.16) * (tailLength * 0.52);
+          const midY = Math.sin(currentAngle + wave2 * 0.16) * (tailLength * 0.52);
+
+          const perpX = -Math.sin(currentAngle);
+          const perpY = Math.cos(currentAngle);
+          const tailWidth = 26 * scale;
 
           ctx.save();
-          ctx.rotate(angleOffset);
-
-          const grad = ctx.createLinearGradient(0, 20, 0, tailLength);
+          // Luminous flame gradient
+          const grad = ctx.createLinearGradient(0, 15 * scale, tipX, tipY);
           if (flameMode === 'solar') {
-            grad.addColorStop(0, 'rgba(255, 152, 0, 0.8)');
-            grad.addColorStop(0.5, 'rgba(255, 87, 34, 0.9)');
-            grad.addColorStop(1, 'rgba(255, 235, 59, 0)');
+            grad.addColorStop(0, 'rgba(255, 152, 0, 0.95)');
+            grad.addColorStop(0.35, 'rgba(255, 87, 34, 0.9)');
+            grad.addColorStop(0.75, 'rgba(255, 235, 59, 0.85)');
+            grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
           } else if (flameMode === 'transcend') {
-            grad.addColorStop(0, 'rgba(224, 64, 251, 0.9)');
-            grad.addColorStop(0.5, 'rgba(122, 60, 196, 0.8)');
+            grad.addColorStop(0, 'rgba(122, 60, 196, 0.95)');
+            grad.addColorStop(0.35, 'rgba(224, 64, 251, 0.9)');
+            grad.addColorStop(0.75, 'rgba(255, 64, 129, 0.85)');
             grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
           } else {
-            grad.addColorStop(0, 'rgba(255, 110, 30, 0.8)');
-            grad.addColorStop(0.6, 'rgba(185, 140, 255, 0.85)');
-            grad.addColorStop(1, 'rgba(255, 215, 0, 0)');
+            // Harmonic Violet-Gold
+            grad.addColorStop(0, 'rgba(122, 60, 196, 0.95)');
+            grad.addColorStop(0.35, 'rgba(255, 100, 40, 0.9)');
+            grad.addColorStop(0.75, 'rgba(255, 215, 64, 0.85)');
+            grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
           }
 
           ctx.fillStyle = grad;
           ctx.beginPath();
-          ctx.moveTo(0, 15);
-          const cp1x = Math.sin(tailPhase) * 35;
-          const cp1y = tailLength * 0.4;
-          const cp2x = Math.cos(tailPhase * 0.8) * 45;
-          const cp2y = tailLength * 0.8;
-          const tipX = Math.sin(tailPhase * 1.2) * 20;
-          const tipY = tailLength;
-
-          ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, tipX, tipY);
-          ctx.bezierCurveTo(cp2x - 15, cp2y, cp1x - 10, cp1y, 0, 15);
+          ctx.moveTo(0, 15 * scale);
+          ctx.quadraticCurveTo(midX + perpX * tailWidth, midY + perpY * tailWidth, tipX, tipY);
+          ctx.quadraticCurveTo(midX - perpX * tailWidth, midY - perpY * tailWidth, 0, 15 * scale);
+          ctx.closePath();
           ctx.fill();
 
-          // Emit particles from tail tips
-          if (Math.random() < 0.6) {
-            const worldTipX = cx + (tipX * Math.cos(angleOffset) - tipY * Math.sin(angleOffset)) * scale;
-            const worldTipY = cy + (tipX * Math.sin(angleOffset) + tipY * Math.cos(angleOffset)) * scale;
+          // Luminous core flame ribbon
+          ctx.beginPath();
+          ctx.moveTo(0, 15 * scale);
+          ctx.quadraticCurveTo(midX + perpX * (tailWidth * 0.35), midY + perpY * (tailWidth * 0.35), tipX, tipY);
+          ctx.quadraticCurveTo(midX - perpX * (tailWidth * 0.35), midY - perpY * (tailWidth * 0.35), 0, 15 * scale);
+          ctx.closePath();
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+          ctx.fill();
+
+          // Embers drifting from tail tips
+          if (Math.random() < 0.45) {
             particles.push(new FireParticle(
-              worldTipX + (Math.random() - 0.5) * 8,
-              worldTipY + (Math.random() - 0.5) * 8,
-              (Math.random() - 0.5) * 1.5,
-              -Math.random() * 2.5 - 1,
-              Math.random() * 5 + 3,
-              Math.floor(Math.random() * 40 + 25)
+              cx + tipX + (Math.random() - 0.5) * 8,
+              cy + tipY + (Math.random() - 0.5) * 8,
+              Math.cos(currentAngle) * 0.8 + (Math.random() - 0.5),
+              Math.sin(currentAngle) * 0.8 - Math.random() * 1.5 - 0.5,
+              Math.random() * 5 + 2.5,
+              Math.floor(Math.random() * 38 + 22)
             ));
           }
-
           ctx.restore();
         }
 
-        // 3. Fox Torso & Shoulders (Origami / Geometric Sleek Silhouette)
-        ctx.fillStyle = '#1b1226';
-        ctx.strokeStyle = flameMode === 'solar' ? '#ff9800' : '#b98cff';
-        ctx.lineWidth = 2;
+        // 3. Fox Torso & Shoulders (Origami Cyber-Silhouette)
+        ctx.save();
+        ctx.scale(scale, scale);
+
+        ctx.fillStyle = '#160e22';
+        ctx.strokeStyle = flameMode === 'solar' ? '#ff9800' : (flameMode === 'transcend' ? '#e040fb' : '#b98cff');
+        ctx.lineWidth = 2.5;
 
         ctx.beginPath();
         ctx.moveTo(0, -60);
-        ctx.lineTo(25, -20);
-        ctx.lineTo(18, 25);
-        ctx.lineTo(-18, 25);
-        ctx.lineTo(-25, -20);
+        ctx.lineTo(26, -20);
+        ctx.lineTo(20, 28);
+        ctx.lineTo(-20, 28);
+        ctx.lineTo(-26, -20);
         ctx.closePath();
         ctx.fill();
         ctx.stroke();
 
-        // 4. Fox Head & Ears
+        // Chest Flame Ruff
         ctx.beginPath();
-        ctx.moveTo(0, -75);
+        ctx.moveTo(0, -50);
+        ctx.lineTo(14, -20);
+        ctx.lineTo(0, 10);
+        ctx.lineTo(-14, -20);
+        ctx.closePath();
+        ctx.fillStyle = flameMode === 'solar' ? 'rgba(255, 235, 59, 0.25)' : 'rgba(255, 215, 64, 0.22)';
+        ctx.fill();
+
+        // 4. Fox Head & Sleek Kitsune Ears
+        // Subtle head tilt toward mouse
+        const angleToMouse = Math.atan2((mouseY - cy), (mouseX - cx));
+        const headTilt = (mouseX > -500) ? Math.max(-0.25, Math.min(0.25, Math.sin(angleToMouse - Math.PI / 2) * 0.25)) : 0;
+
+        ctx.save();
+        ctx.translate(0, -60);
+        ctx.rotate(headTilt);
+
+        // Head silhouette
+        ctx.beginPath();
+        ctx.moveTo(0, -15);
         // Right ear
-        ctx.lineTo(15, -70);
-        ctx.lineTo(38, -125);
-        ctx.lineTo(8, -85);
+        ctx.lineTo(16, -10);
+        ctx.lineTo(42, -68);
+        ctx.lineTo(10, -25);
         // Snout
-        ctx.lineTo(0, -45);
+        ctx.lineTo(0, 20);
         // Left ear
-        ctx.lineTo(-8, -85);
-        ctx.lineTo(-38, -125);
-        ctx.lineTo(-15, -70);
+        ctx.lineTo(-10, -25);
+        ctx.lineTo(-42, -68);
+        ctx.lineTo(-16, -10);
         ctx.closePath();
-        ctx.fillStyle = '#170e24';
+
+        ctx.fillStyle = '#140c1e';
         ctx.fill();
         ctx.stroke();
 
-        // 5. Blazing Fox Eyes (Enlightened Slits)
-        ctx.fillStyle = flameMode === 'solar' ? '#ffeb3b' : '#00e5ff';
+        // Inner ear flame glow
+        ctx.fillStyle = flameMode === 'solar' ? 'rgba(255, 87, 34, 0.6)' : 'rgba(224, 64, 251, 0.6)';
+        ctx.beginPath();
+        ctx.moveTo(12, -15);
+        ctx.lineTo(34, -58);
+        ctx.lineTo(16, -22);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(-12, -15);
+        ctx.lineTo(-34, -58);
+        ctx.lineTo(-16, -22);
+        ctx.closePath();
+        ctx.fill();
+
+        // 5. Blazing Fox Slit Eyes (Tracking cursor)
+        ctx.fillStyle = flameMode === 'solar' ? '#ffeb3b' : (flameMode === 'transcend' ? '#00e5ff' : '#00e5ff');
         ctx.shadowColor = ctx.fillStyle;
-        ctx.shadowBlur = 12;
+        ctx.shadowBlur = 14;
 
         ctx.beginPath();
-        ctx.ellipse(-12, -65, 5, 2, Math.PI / 6, 0, Math.PI * 2);
+        ctx.ellipse(-14, -8, 6, 2.2, Math.PI / 6, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.beginPath();
-        ctx.ellipse(12, -65, 5, 2, -Math.PI / 6, 0, Math.PI * 2);
+        ctx.ellipse(14, -8, 6, 2.2, -Math.PI / 6, 0, Math.PI * 2);
         ctx.fill();
 
-        // 6. The Third Eye / Ajna Enlightenment Diamond (Center of Forehead)
+        // 6. The Third Eye / Ajna Enlightenment Diamond
         ctx.fillStyle = '#ffd54f';
         ctx.shadowColor = '#ff5722';
-        ctx.shadowBlur = 18;
+        ctx.shadowBlur = 20;
         ctx.beginPath();
-        ctx.moveTo(0, -82);
-        ctx.lineTo(5, -76);
-        ctx.lineTo(0, -70);
-        ctx.lineTo(-5, -76);
+        ctx.moveTo(0, -26);
+        ctx.lineTo(6, -20);
+        ctx.lineTo(0, -14);
+        ctx.lineTo(-6, -20);
         ctx.closePath();
         ctx.fill();
 
-        ctx.restore();
+        ctx.restore(); // end head
+        ctx.restore(); // end scale
+        ctx.restore(); // end fox
       }
 
       // Main Loop
       function animate() {
+        if (width === 0 || height === 0) {
+          resize();
+        }
         ctx.clearRect(0, 0, width, height);
         time++;
 
         // Base spawn from mouse hover if within canvas
         if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-          for (let k = 0; k < 3; k++) {
+          for (let k = 0; k < 2; k++) {
             particles.push(new FireParticle(
-              mouseX + (Math.random() - 0.5) * 20,
-              mouseY + (Math.random() - 0.5) * 20,
-              (Math.random() - 0.5) * 2,
+              mouseX + (Math.random() - 0.5) * 22,
+              mouseY + (Math.random() - 0.5) * 22,
+              (Math.random() - 0.5) * 2.2,
               -Math.random() * 3 - 1,
               Math.random() * 6 + 3,
               Math.floor(Math.random() * 45 + 20)
@@ -1717,8 +1789,8 @@
 
         // Draw Center Enlightened Fox Totem
         const foxX = width * 0.5;
-        const foxY = height * 0.42;
-        const foxScale = Math.min(1.2, Math.max(0.7, width / 1200));
+        const foxY = Math.min(height * 0.38, 260);
+        const foxScale = Math.min(1.25, Math.max(0.75, width / 1100));
 
         drawEnlightenedFox(foxX, foxY, foxScale);
 
@@ -1740,7 +1812,7 @@
         requestAnimationFrame(animate);
       }
 
-      animate();
+      requestAnimationFrame(animate);
     })();
   </script>
 </body>
