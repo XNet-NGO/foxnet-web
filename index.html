@@ -879,51 +879,144 @@
         </div>
         <p style="color:var(--mut); font-size:1.02rem; margin-bottom:1.5rem; line-height:1.65;">
           In <i>The Future X Network: A Bell Labs Perspective</i> (Marcus K. Weldon, Bell Labs President &amp; CTO), Bell Labs articulated
-          the foundational shifts governing the next era of human civilization. Foxnet adopts these core principles, transforming them
-          from corporate telecom theory into open sovereign reality:
+          the foundational 9-domain architecture governing the 4th Industrial Revolution and the birth of "Human 2.0." Foxnet adopts these seminal domains,
+          transforming them from closed carrier infrastructure into an open, decentralized sovereign computing grid:
         </p>
 
+        <!-- The Bell Labs AugI Theorem Card -->
+        <div style="background: rgba(122, 60, 196, 0.15); border: 1px solid rgba(185, 140, 255, 0.4); border-radius: 0.75rem; padding: 1.25rem 1.5rem; margin-bottom: 1.75rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+          <div style="max-width: 44rem;">
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.35rem;">
+              <span style="font-size:1.2rem; color:var(--fire3);">⚡</span>
+              <strong style="color:#fff; font-size:1.15rem; letter-spacing:0.02em;">The Augmented Intelligence Axiom: AugI = HI + AI</strong>
+            </div>
+            <p style="color:var(--mut); font-size:0.92rem; margin:0; line-height:1.55;">
+              Bell Labs proved that monolithic, isolated artificial intelligence is inherently brittle, unprovable, and easily perturbed by adversarial vectors.
+              True cognitive evolution mandates <b>Augmented Intelligence (AugI = HI + AI)</b>: combining Human Intelligence with Artificial Intelligence,
+              anchored in provable correctness, local sovereignty, and continuous human feedback in the loop.
+            </p>
+          </div>
+          <div style="background:rgba(20,15,28,0.9); border:1px solid var(--acc); border-radius:0.5rem; padding:0.75rem 1.25rem; text-align:center; font-family:monospace; font-size:1.2rem; font-weight:700; color:#ffd54f; white-space:nowrap; box-shadow:0 0 20px rgba(185,140,255,0.25);">
+            AugI = HI + AI
+          </div>
+        </div>
+
+        <!-- The 9-Domain Future X Architecture Grid -->
         <div class="grid-3" style="gap:1rem;">
-          <div style="background:rgba(20,15,28,0.7); border:1px solid var(--line); border-radius:0.6rem; padding:1.1rem;">
-            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">1. Eradication of Latency (&lt;1ms)</h4>
-            <p style="color:var(--mut); font-size:0.9rem; margin:0;">
-              Bell Labs demonstrated that human reflex and cognitive synchronization require deterministic sub-millisecond roundtrips.
-              Foxnet accomplishes this by running neural inference directly on local silicon rather than querying distant data centers.
+          <!-- Domain 0 -->
+          <div style="background:rgba(20,15,28,0.7); border:1px solid var(--line); border-radius:0.6rem; padding:1.1rem; position:relative;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+              <span style="font-family:monospace; font-size:0.75rem; color:var(--fire3); background:rgba(255,152,0,0.12); padding:0.15rem 0.45rem; border-radius:0.25rem; font-weight:600;">DOMAIN 0</span>
+              <span style="font-size:0.8rem; color:var(--mut);">EDS</span>
+            </div>
+            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">Emerging Devices &amp; Sensors</h4>
+            <p style="color:var(--mut); font-size:0.88rem; margin:0; line-height:1.5;">
+              <b>Bell Labs:</b> Reversing smartphone aggregation into a pervasive cyberphysical fabric and human-machine "sixth sense".<br/>
+              <b>Foxnet:</b> Handheld sovereign silicon (Pixel 10 Pro XL) as the personal cyberphysical anchor, running on-device multimodal sensors and neural encoders.
             </p>
           </div>
+
+          <!-- Domain 1 -->
           <div style="background:rgba(20,15,28,0.7); border:1px solid var(--line); border-radius:0.6rem; padding:1.1rem;">
-            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">2. Distributed Edge Cloud</h4>
-            <p style="color:var(--mut); font-size:0.9rem; margin:0;">
-              Moving intelligence to the extreme network periphery. In Foxnet, your pocket device is not a client of an external cloud;
-              it is the authoritative edge cloud itself, hosting its own local LLMs and secure state.
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+              <span style="font-family:monospace; font-size:0.75rem; color:var(--fire3); background:rgba(255,152,0,0.12); padding:0.15rem 0.45rem; border-radius:0.25rem; font-weight:600;">DOMAIN 1</span>
+              <span style="font-size:0.8rem; color:var(--mut);">MSA</span>
+            </div>
+            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">Massive Scale Access</h4>
+            <p style="color:var(--mut); font-size:0.88rem; margin:0; line-height:1.5;">
+              <b>Bell Labs:</b> Sub-1ms latency, 1–10 Gbps access, massive MIMO beamforming (&gt;5x spectral efficiency), and wired-wireless convergence.<br/>
+              <b>Foxnet:</b> Eradicating latency by eliminating cloud roundtrips; zero-hop local IPC buses (<code class="code-tag">xnix-shelld</code>) and deterministic hardware execution.
             </p>
           </div>
+
+          <!-- Domain 2 -->
           <div style="background:rgba(20,15,28,0.7); border:1px solid var(--line); border-radius:0.6rem; padding:1.1rem;">
-            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">3. Augmented Cognitive Systems</h4>
-            <p style="color:var(--mut); font-size:0.9rem; margin:0;">
-              Future networks automate the repetitive tasks of living. Through on-device models (<code class="code-tag">Agora</code>),
-              users command an intelligent orchestrator that serves the individual with complete data privacy.
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+              <span style="font-family:monospace; font-size:0.75rem; color:var(--fire3); background:rgba(255,152,0,0.12); padding:0.15rem 0.45rem; border-radius:0.25rem; font-weight:600;">DOMAIN 2</span>
+              <span style="font-size:0.8rem; color:var(--mut);">CEC</span>
+            </div>
+            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">Converged Edge Cloud</h4>
+            <p style="color:var(--mut); font-size:0.88rem; margin:0; line-height:1.5;">
+              <b>Bell Labs:</b> Massively distributed edge clouds located within 100km of the user with serverless microservices and hardware offload.<br/>
+              <b>Foxnet:</b> <b>The Inverted Edge Substrate</b>: The ultimate edge cloud is not at a telco cell tower—it is the secure enclave in your palm.
             </p>
           </div>
+
+          <!-- Domain 3 -->
           <div style="background:rgba(20,15,28,0.7); border:1px solid var(--line); border-radius:0.6rem; padding:1.1rem;">
-            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">4. Cryptographic Network Slicing</h4>
-            <p style="color:var(--mut); font-size:0.9rem; margin:0;">
-              Replacing monolithic network stacks with micro-isolated, dynamically configured tunnels. Implemented in X-NIX via
-              compartmentalized SELinux domains, interface-pinned networking, and user-space port multiplexing (<code class="code-tag">Switchboard</code>).
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+              <span style="font-family:monospace; font-size:0.75rem; color:var(--fire3); background:rgba(255,152,0,0.12); padding:0.15rem 0.45rem; border-radius:0.25rem; font-weight:600;">DOMAIN 3</span>
+              <span style="font-size:0.8rem; color:var(--mut);">SNF</span>
+            </div>
+            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">Smart Network Fabric</h4>
+            <p style="color:var(--mut); font-size:0.88rem; margin:0; line-height:1.5;">
+              <b>Bell Labs:</b> Breaking the Shannon limit via Spatial Division Multiplexing (SDM) and dynamic cognitive path selection.<br/>
+              <b>Foxnet:</b> Multi-path cryptographic mesh grids, dynamic WireGuard overlay routing, and zero-telemetry sovereign topology.
             </p>
           </div>
+
+          <!-- Domain 4 -->
           <div style="background:rgba(20,15,28,0.7); border:1px solid var(--line); border-radius:0.6rem; padding:1.1rem;">
-            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">5. Physical-Digital Convergence</h4>
-            <p style="color:var(--mut); font-size:0.9rem; margin:0;">
-              Harmonizing hardware attestation, biometric security keys (FIDO2), and hardware-backed keystores. Physical presence
-              validates digital authority with mathematical certainty.
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+              <span style="font-family:monospace; font-size:0.75rem; color:var(--fire3); background:rgba(255,152,0,0.12); padding:0.15rem 0.45rem; border-radius:0.25rem; font-weight:600;">DOMAIN 4</span>
+              <span style="font-size:0.8rem; color:var(--mut);">UAC</span>
+            </div>
+            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">Universal Adaptive Core</h4>
+            <p style="color:var(--mut); font-size:0.88rem; margin:0; line-height:1.5;">
+              <b>Bell Labs:</b> Total "connectivity agnosticism" across cellular, Wi-Fi, and wireline with a common data layer and dynamic network slicing.<br/>
+              <b>Foxnet:</b> Micro-isolated SELinux domains, loopback ADB isolation, and user-space port multiplexing (<code class="code-tag">Switchboard</code>).
             </p>
           </div>
+
+          <!-- Domain 5 -->
           <div style="background:rgba(20,15,28,0.7); border:1px solid var(--line); border-radius:0.6rem; padding:1.1rem;">
-            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">6. The Sovereign Inversion</h4>
-            <p style="color:var(--mut); font-size:0.9rem; margin:0;">
-              Where telecom providers sought a closed "Future X" infrastructure, Foxnet inverts the model:
-              open-source, cryptographically verified, verifiable boot, and zero surveillance.
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+              <span style="font-family:monospace; font-size:0.75rem; color:var(--fire3); background:rgba(255,152,0,0.12); padding:0.15rem 0.45rem; border-radius:0.25rem; font-weight:600;">DOMAIN 5</span>
+              <span style="font-size:0.8rem; color:var(--mut);">PNOS</span>
+            </div>
+            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">Programmable Network OS</h4>
+            <p style="color:var(--mut); font-size:0.88rem; margin:0; line-height:1.5;">
+              <b>Bell Labs:</b> Zero-touch network automation replacing human operators with model-driven control (YANG/NetConf) and predictive AI.<br/>
+              <b>Foxnet:</b> Autonomous self-healing infrastructure where declarative policies and local agentic subagents maintain system integrity.
+            </p>
+          </div>
+
+          <!-- Domain 6 -->
+          <div style="background:rgba(20,15,28,0.7); border:1px solid var(--line); border-radius:0.6rem; padding:1.1rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+              <span style="font-family:monospace; font-size:0.75rem; color:var(--fire3); background:rgba(255,152,0,0.12); padding:0.15rem 0.45rem; border-radius:0.25rem; font-weight:600;">DOMAIN 6</span>
+              <span style="font-size:0.8rem; color:var(--mut);">ACS</span>
+            </div>
+            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">Augmented Cognition Systems</h4>
+            <p style="color:var(--mut); font-size:0.88rem; margin:0; line-height:1.5;">
+              <b>Bell Labs:</b> Real-time decision engines operating under $\text{AugI} = \text{HI} + \text{AI}$ for complex hyperscale systems (&gt;3,000 nodes).<br/>
+              <b>Foxnet:</b> Sovereign on-device intelligence (<code class="code-tag">Agora</code>, <code class="code-tag">xnix-mld</code>) executing private neural models locally on Tensor G5 silicon.
+            </p>
+          </div>
+
+          <!-- Domain 7 -->
+          <div style="background:rgba(20,15,28,0.7); border:1px solid var(--line); border-radius:0.6rem; padding:1.1rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+              <span style="font-family:monospace; font-size:0.75rem; color:var(--fire3); background:rgba(255,152,0,0.12); padding:0.15rem 0.45rem; border-radius:0.25rem; font-weight:600;">DOMAIN 7</span>
+              <span style="font-size:0.8rem; color:var(--mut);">DVP</span>
+            </div>
+            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">Digital Value Platforms</h4>
+            <p style="color:var(--mut); font-size:0.88rem; margin:0; line-height:1.5;">
+              <b>Bell Labs:</b> Transcending consumer web platforms to create mixed-reality actuation and superhuman robotics (Industry 4.0 / "Human 2.0").<br/>
+              <b>Foxnet:</b> Rejection of surveillance capitalism; sovereign execution tools (<code class="code-tag">Haven</code>, <code class="code-tag">Shellbox</code>) granting users true cyberphysical agency.
+            </p>
+          </div>
+
+          <!-- Domain 8 -->
+          <div style="background:rgba(20,15,28,0.7); border:1px solid var(--line); border-radius:0.6rem; padding:1.1rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+              <span style="font-family:monospace; font-size:0.75rem; color:var(--fire3); background:rgba(255,152,0,0.12); padding:0.15rem 0.45rem; border-radius:0.25rem; font-weight:600;">DOMAIN 8</span>
+              <span style="font-size:0.8rem; color:var(--mut);">DDS</span>
+            </div>
+            <h4 style="color:#fff; margin:0 0 0.4rem; font-size:1.05rem;">Dynamic Data Security</h4>
+            <p style="color:var(--mut); font-size:0.88rem; margin:0; line-height:1.5;">
+              <b>Bell Labs:</b> Zero-trust continuous edge validation, autonomous quarantine of rogue nodes, and dynamic trust federation.<br/>
+              <b>Foxnet:</b> Hardware-backed Android Verified Boot (AVB), strict UID/GID sandboxing, loopback ADB pinning, and immutable cryptographic attestation.
             </p>
           </div>
         </div>
